@@ -1,12 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
-  const checkbox = document.querySelector("#id-checkbox");
-
-checkbox.addEventListener("click", checkboxClick, false);
-
-function checkboxClick(event) {
-  let warn = "preventDefault() won't let you check this!<br>";
-  document.getElementById("output-box").innerHTML += warn;
-  event.preventDefault();
-}
+  let form = document.querySelector('form')
+  form.addEventListener('submit', (e) =>{
+    console.log(form)
+    e.preventDefault()
+    console.log(e.target.new_task_description)
+    buildToDo(e.target.new_task_description.value)
+    form.reset()
+  })
 });
+
+function buildToDo(todo){
+  console.log(todo)
+  let p = document.createElement('li')
+  let btn = document.createElement('button')
+  btn.addEventListener('click', handleDelete)
+  btn.textContent = ' x'
+  p.textContent = `${todo} `
+  p.appendChild(btn)
+  console.log(document.querySelector('#main-content'))
+  document.querySelector('#tasks').appendChild(p)
+}
+
+function handleDelete(e){
+  e.target.parentNode.remove()
+}
